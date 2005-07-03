@@ -1,6 +1,6 @@
 package Bio::MedChunker;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use strict;
 use YamCha;
@@ -16,10 +16,17 @@ sub extract_NPchunks($) {
     my @buf;
     my @np;
     while(my $a = shift @$l){
-	push @buf, $a if $a->[2] =~ /^[BI]$/o;
 	if( ($a->[2] eq 'O' && @buf) || ($a->[2] eq 'I' && !@$l && @buf)) {
+	    push @buf, $a if $a->[2] eq 'I';
 	    push @np, [@buf];
 	    @buf = ();
+	}
+	elsif( $a->[2] eq 'B' && @buf ){
+	    push @np, [@buf];
+	    @buf = ($a);
+	}
+	elsif( $a->[2] =~ /^[BI]$/o){
+	    push @buf, $a;
 	}
     }
     @np;

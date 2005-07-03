@@ -1,5 +1,5 @@
 name: Bio-MedChunker
-version: 0.01
+version: 0.02
 abstract: NP chunker for MEDLINE texts
 author: Yung-chung Lin <xern@cpan.org>
 license: perl
